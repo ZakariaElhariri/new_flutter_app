@@ -4,8 +4,9 @@ class SpecialOfferModel {
 
   SpecialOfferModel({
     required this.name,
-    required this.number,
     required this.imagePath,
+    required this.number,
+    
   });
 }
 // NO ITEMS
