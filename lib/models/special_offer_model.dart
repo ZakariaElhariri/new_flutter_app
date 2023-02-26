@@ -8,7 +8,7 @@ class SpecialOfferModel {
     required this.imagePath,
   });
 }
-
+//items
 List<SpecialOfferModel> specialOffersList = [
   SpecialOfferModel(
     name: "Smartphone",
