@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 import 'custom_icon_button.dart';
 
@@ -36,9 +35,14 @@ class CustomAppBar extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 10),
-          CustomIconButton(iconPath: "assets/icons/Cart Icon.svg",navigationPath: "/cart"),
+          CustomIconButton(
+            iconPath: "assets/icons/Cart Icon.svg",
+            onTap: () {
+              Navigator.pushNamed(context, "/cart");
+            },
+          ),
           const SizedBox(width: 10),
-          CustomIconButton(iconPath: "assets/icons/Bell.svg",navigationPath: "/profile"),
+          const CustomIconButton(iconPath: "assets/icons/Bell.svg"),
         ],
       ),
     );

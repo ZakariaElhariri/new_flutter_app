@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../controllers/authentication_controllers.dart';
 
 var formKey = GlobalKey<FormState>();
 String email = "", password = "", passwordConfirmation = "";
 
-class SignupScreen extends StatelessWidget {
+class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
+
+  @override
+  State<SignupScreen> createState() => _SignupScreenState();
+}
+
+class _SignupScreenState extends State<SignupScreen> {
+  authenticationController signup_controller = Get.find<authenticationController>();
 
   @override
   Widget build(BuildContext context) {
@@ -15,204 +25,191 @@ class SignupScreen extends StatelessWidget {
           padding: EdgeInsets.all(30),
           child: Form(
             key: formKey,
-            child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          icon: Icon(
-                            Icons.arrow_back_ios_new_rounded,
-                            size: 16,
+            child: GetBuilder<authenticationController>(
+              builder:(signup_Controller)=> SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(
+                            onPressed: () {
+                              Get.back();
+                              //Navigator.pop(context);
+                            },
+                            icon: Icon(
+                              Icons.arrow_back_ios_new_rounded,
+                              size: 16,
+                              color: Colors.grey,
+                            )),
+                        Text(
+                          'Sign Up',
+                          style: TextStyle(
                             color: Colors.grey,
-                          )),
-                      Text(
-                        'Sign Up',
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          fontFamily: "Multi",
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            fontFamily: "Multi",
+                          ),
+                        ),
+                        Icon(
+                          Icons.arrow_back_ios_new_rounded,
+                          size: 16,
+                          color: Colors.white,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 45,
+                    ),
+                    Text(
+                      'Register Account',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 12,
+                    ),
+                    Text(
+                      'Complete your details or continue \nwith social media',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        height: 1.5,
+                        fontWeight: FontWeight.w400,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 40),
+                    TextFormField(
+                      onSaved: (String? newValue) {
+                        email = newValue!;
+                      },
+                      validator: (String? value) {
+                        return signup_controller.check_email(value!);
+                      },
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                        labelText: "Email",
+                        hintText: "Enter your email",
+                        suffixIcon: Icon(Icons.email_outlined),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(50),
                         ),
                       ),
-                      Icon(
-                        Icons.arrow_back_ios_new_rounded,
-                        size: 16,
-                        color: Colors.white,
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 45,
-                  ),
-                  Text(
-                    'Register Account',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
                     ),
-                  ),
-                  SizedBox(
-                    height: 12,
-                  ),
-                  Text(
-                    'Complete your details or continue \nwith social media',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      height: 1.5,
-                      fontWeight: FontWeight.w400,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: 40),
-                  TextFormField(
-                    onSaved: (String? newValue) {
-                      email = newValue!;
-                    },
-                    validator: (String? value) {
-                      final bool emailValid = RegExp(
-                              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                          .hasMatch(value!);
-                      if (!emailValid) {
-                        return "Email not valid";
-                      } else {
-                        return null;
-                      }
-                    },
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
-                      labelText: "Email",
-                      hintText: "Enter your email",
-                      suffixIcon: Icon(Icons.email_outlined),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50),
+                    SizedBox(height: 20),
+                    TextFormField(
+                      obscureText: true,
+                      onSaved: (String? newValue) {
+                        password = newValue!;
+                      },
+                      validator: (String? value) {
+                        return signup_controller.check_password(value!);
+                      },
+                      keyboardType: TextInputType.visiblePassword,
+                      decoration: InputDecoration(
+                        labelText: "Password",
+                        hintText: "Enter your password",
+                        suffixIcon: Icon(Icons.lock_outline_rounded),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(50),
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(height: 20),
-                  TextFormField(
-                    obscureText: true,
-                    onSaved: (String? newValue) {
-                      password = newValue!;
-                    },
-                    validator: (String? value) {
-                      if (value!.length < 8) {
-                        return "The lengh is < 8";
-                      } else {
-                        return null;
-                      }
-                    },
-                    keyboardType: TextInputType.visiblePassword,
-                    decoration: InputDecoration(
-                      labelText: "Password",
-                      hintText: "Enter your password",
-                      suffixIcon: Icon(Icons.lock_outline_rounded),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50),
+                    SizedBox(height: 20),
+                    TextFormField(
+                      obscureText: true,
+                      onSaved: (String? newValue) {
+                        passwordConfirmation = newValue!;
+                      },
+                      validator: (String? value) {return signup_controller.check_matching_passwords(value!);
+                      },
+                      keyboardType: TextInputType.visiblePassword,
+                      decoration: InputDecoration(
+                        labelText: "Confirm Password",
+                        hintText: "Re-enter your password",
+                        suffixIcon: Icon(Icons.lock_outline_rounded),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(50),
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(height: 20),
-                  TextFormField(
-                    obscureText: true,
-                    onSaved: (String? newValue) {
-                      passwordConfirmation = newValue!;
-                    },
-                    validator: (String? value) {
-                      if (value!.length < 8) {
-                        return "The lengh is < 8";
-                      } else {
-                        return null;
-                      }
-                    },
-                    keyboardType: TextInputType.visiblePassword,
-                    decoration: InputDecoration(
-                      labelText: "Confirm Password",
-                      hintText: "Re-enter your password",
-                      suffixIcon: Icon(Icons.lock_outline_rounded),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(50),
+                    SizedBox(height: 40),
+                    TextButton(
+                      onPressed: () => signup_controller.Continue_to_home(context,formKey),
+                      child: Text('Continue'),
+                      style: TextButton.styleFrom(
+                        backgroundColor: Color(0xfff77546),
+                        foregroundColor: Colors.white,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 130,
+                          vertical: 16,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(height: 40),
-                  TextButton(
-                    onPressed: () => signUp(context),
-                    child: Text('Continue'),
-                    style: TextButton.styleFrom(
-                      backgroundColor: Color(0xfff77546),
-                      foregroundColor: Colors.white,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 130,
-                        vertical: 16,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
+                    SizedBox(
+                      height: 70,
                     ),
-                  ),
-                  SizedBox(
-                    height: 70,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          print("Google sign up clicked");
-                        },
-                        child: Container(
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            print("Google sign up clicked");
+                          },
+                          child: Container(
+                            width: 35,
+                            height: 35,
+                            padding: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Color(0xffeeeff1),
+                            ),
+                            child: Image.asset("assets/icons/google.png"),
+                          ),
+                        ),
+                        SizedBox(width: 10),
+                        Container(
                           width: 35,
                           height: 35,
-                          padding: EdgeInsets.all(10),
+                          padding: EdgeInsets.all(8),
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             color: Color(0xffeeeff1),
                           ),
-                          child: Image.asset("assets/icons/google.png"),
+                          child: Image.asset("assets/icons/facebook.png"),
                         ),
-                      ),
-                      SizedBox(width: 10),
-                      Container(
-                        width: 35,
-                        height: 35,
-                        padding: EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Color(0xffeeeff1),
+                        SizedBox(width: 10),
+                        Container(
+                          width: 35,
+                          height: 35,
+                          padding: EdgeInsets.all(9),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Color(0xffeeeff1),
+                          ),
+                          child: Image.asset("assets/icons/twitter.png"),
                         ),
-                        child: Image.asset("assets/icons/facebook.png"),
-                      ),
-                      SizedBox(width: 10),
-                      Container(
-                        width: 35,
-                        height: 35,
-                        padding: EdgeInsets.all(9),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Color(0xffeeeff1),
-                        ),
-                        child: Image.asset("assets/icons/twitter.png"),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 14,
-                  ),
-                  Text(
-                    'By continuing your confirm that you agree with our Term and Condition',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.grey,
+                      ],
                     ),
-                  ),
-                ],
+                    SizedBox(
+                      height: 14,
+                    ),
+                    Text(
+                      'By continuing your confirm that you agree with our Term and Condition',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

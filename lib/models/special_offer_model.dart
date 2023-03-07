@@ -4,12 +4,11 @@ class SpecialOfferModel {
 
   SpecialOfferModel({
     required this.name,
-    required this.imagePath,
     required this.number,
-    
+    required this.imagePath,
   });
 }
-// NO ITEMS
+
 List<SpecialOfferModel> specialOffersList = [
   SpecialOfferModel(
     name: "Smartphone",

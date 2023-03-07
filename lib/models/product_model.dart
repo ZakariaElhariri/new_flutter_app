@@ -6,7 +6,7 @@ class ProductModel {
   final List<String> images;
   final List<Color> colors;
   final double rating, price;
-  final bool isFavourite, isPopular;
+  bool isFavourite, isPopular;
 
   ProductModel({
     required this.id,
@@ -31,9 +31,9 @@ List<ProductModel> productsList = [
       "assets/images/ps4_console_white_4.png",
     ],
     colors: [
-      Color(0xFFF6625E),
-      Color(0xFF836DB8),
-      Color(0xFFDECB9C),
+      const Color(0xFFF6625E),
+      const Color(0xFF836DB8),
+      const Color(0xFFDECB9C),
       Colors.white,
     ],
     title: "Wireless Controller for PS4™",
@@ -49,9 +49,9 @@ List<ProductModel> productsList = [
       "assets/images/Image Popular Product 2.png",
     ],
     colors: [
-      Color(0xFFF6625E),
-      Color(0xFF836DB8),
-      Color(0xFFDECB9C),
+      const Color(0xFFF6625E),
+      const Color(0xFF836DB8),
+      const Color(0xFFDECB9C),
       Colors.white,
     ],
     title: "Nike Sport White - Man Pant",
@@ -66,9 +66,9 @@ List<ProductModel> productsList = [
       "assets/images/glap.png",
     ],
     colors: [
-      Color(0xFFF6625E),
-      Color(0xFF836DB8),
-      Color(0xFFDECB9C),
+      const Color(0xFFF6625E),
+      const Color(0xFF836DB8),
+      const Color(0xFFDECB9C),
       Colors.white,
     ],
     title: "Gloves XC Omega - Polygon",
@@ -84,9 +84,9 @@ List<ProductModel> productsList = [
       "assets/images/wireless headset.png",
     ],
     colors: [
-      Color(0xFFF6625E),
-      Color(0xFF836DB8),
-      Color(0xFFDECB9C),
+      const Color(0xFFF6625E),
+      const Color(0xFF836DB8),
+      const Color(0xFFDECB9C),
       Colors.white,
     ],
     title: "Logitech Head",
@@ -98,4 +98,4 @@ List<ProductModel> productsList = [
 ];
 
 const String description =
-    "Wireless Controller for PS4™ gives you what you want in your gaming from over precision control your games to sharing …";
+    "Wireless Controller for PS4™ gives you what you want in your gaming from over precision control your games to sharing, Wireless Controller for PS4™ gives you what you want in your gaming from over precision control your games to sharing, Wireless Controller for PS4™ gives you what you want in your gaming from over precision control your games to sharing, Wireless Controller for PS4™ gives you what you want in your gaming from over precision control your games to sharing, ";
